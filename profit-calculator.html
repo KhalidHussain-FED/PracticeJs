@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profit Equation Calculator</title>
+<style>
+
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+    
+    main {
+        width: 100%;
+    }
+    
+    .main {
+        max-width: 1200px;
+        margin: auto;
+        padding: 20px;
+    }
+    
+    .main h1 {
+        background-color: #0f0f0f;
+        color: #fff;
+        font-size: 33px;
+        text-align: center;
+        padding: 15px 0;
+        border-radius: 5px;
+        margin-bottom: 38px;
+    }
+    
+    .btn-row {
+        display: flex;
+        justify-content: flex-end;
+    }
+    
+    .btn-row button {
+        padding: 16px 24px;
+        font-family: 'Roboto Condensed' !important;
+        border: none;
+        outline: none;
+        border-radius: 5px;
+        cursor: pointer;
+        background-color: #4aa359;
+        font-size: 18px;
+        font-weight: 700;
+        width: 100%;
+        color: #fff !important;
+    }
+    
+    input {
+        border: 2px solid #4aa359;
+        padding: 5px;
+        font-size: 18px;
+        text-align: center;
+        outline: none;
+    }
+    
+    .top-table-heading {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        margin-top: 20px;
+    }
+    
+    .top-table-heading div {
+        font-size: 22px;
+        width: 25%;
+        text-align: center !important;
+        font-weight: 700;
+        font-family: 'Roboto Condensed' !important;
+    }
+    
+    .row-whole {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+    }
+    
+    .row-whole div {
+        max-width: 23%;
+        min-width: 23%;
+        font-size: 22px;
+        font-weight: 700;
+        font-family: 'Roboto Condensed' !important;
+        color: #4aa359;
+    }
+    
+    .row-whole div:first-child {
+        text-align: left;
+    }
+    
+    .row-whole div input {
+        width: 100%;
+    }
+    
+    .signs-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+    }
+    
+    .coaching-signs-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        /* gap: 20px; */
+        font-size: 30px;
+        margin-right: 11%;
+    }
+    
+    .signs-row div {
+        width: 25%;
+        font-size: 30px;
+        font-weight: 700;
+        text-align: center;
+    }
+    
+    .signs-row div:first-child {
+        text-align: left;
+    }
+    
+    .orange-color {
+        color: #000000 !important;
+    }
+    
+    @media (max-width:1040px) {
+        .row-whole div:nth-child(1) {
+            font-size: 25px;
+        }
+    
+        .top-table-heading div {
+            font-size: 20px;
+        }
+    
+        input {
+            font-size: 16px;
+        }
+    }
+    
+    @media (max-width:920px) {
+        .row-whole div:nth-child(1) {
+            font-size: 22px;
+        }
+    }
+    
+    @media (max-width:805px) {
+        .row-whole div:nth-child(1) {
+            font-size: 20px;
+        }
+    
+        .top-table-heading div {
+            font-size: 18px;
+        }
+    }
+    
+    @media (max-width:736px) {
+        .row-whole div:nth-child(1) {
+            font-size: 17px;
+        }
+    
+        .row-whole {
+            word-wrap: break-word;
+            gap: 5px;
+        }
+    
+        .top-table-heading {
+            gap: 5px;
+        }
+    
+        input {
+            font-size: 15px;
+        }
+    
+        .row-whole div input {
+            font-size: 16px !important;
+        }
+    }
+    
+    @media (max-width:669px) {
+        .row-whole div:nth-child(1) {
+            font-size: 16px;
+        }
+    
+        .top-table-heading div {
+            font-size: 16px;
+        }
+    
+        input {
+            font-size: 14px;
+        }
+    
+        .row-whole div input {
+            font-size: 14px !important;
+        }
+    }
+    
+    @media (max-width:567px) {
+        .row-whole div:nth-child(1) {
+            font-size: 14px;
+        }
+    
+        .top-table-heading div {
+            font-size: 14px;
+        }
+    
+        input {
+            font-size: 12px;
+        }
+    
+        .row-whole div input {
+            font-size: 12px !important;
+        }
+    }
+    
+    </style>
+</head>
+<body>
+
+<div class="main">
+    <div class="btn-row">
+        <button id="calc-btn">Calculate</button>
+    </div>
+    <div class="top-table-heading">
+        <div></div>
+        <div>Past</div>
+        <div>Change (%)</div>
+        <div>Future</div>
+    </div>
+    <div class="row-whole">
+        <div>Leads Generated</div>
+        <div><input type="text" class="past-lead-input format-input" value=""></div>
+        <div><input type="text" class="lead-change-input change-input format-input"></div>
+        <div><input type="text" class="future-lead-input" disabled=""></div>
+    </div>
+    <div class="row-whole">
+        <div>Conversion Rate</div>
+        <div class="input-percentage"><input type="text" class="past-rate-input"></div>
+        <div><input type="text" class="rate-change-input change-input"></div>
+        <div class="input-percentage"><input type="text" class="future-rate-input" disabled=""></div>
+    </div>
+    <div class="row-whole">
+        <div>New Customers</div>
+        <div><input type="text" class="past-customer1-input"></div>
+        <div><input type="text" class="customer1-change-input change-input"></div>
+        <div><input type="text" class="future-customer1-input" disabled=""></div>
+    </div>
+    <div class="row-whole">
+        <div>Retained Customers</div>
+        <div><input type="text" class="past-retained-customer1 format-input"></div>
+        <div><input type="text" class="retained-change-input change-input format-input"></div>
+        <div><input type="text" class="future-retained-customer2 " disabled=""></div>
+    </div>
+    <div class="row-whole">
+        <div>Customers</div>
+        <div><input type="text" class="past-customer2-input"></div>
+        <div><input type="text" class="customer2-change-input change-input"></div>
+        <div><input type="text" class="future-customers2-input" disabled=""></div>
+    </div>
+    <div class="row-whole">
+        <div>Revenue/Customer</div>
+        <div class="input-dollar"><input type="text" class="past-revenue2-input format-input"></div>
+        <div><input type="text" class="revenue-customer-change-input change-input format-input"></div>
+        <div class="input-dollar"><input type="text" class="future-revenue-customer-input " disabled=""></div>
+    </div>
+    <div class="row-whole">
+        <div>Revenues</div>
+        <div class="input-dollar"><input type="text" class="past-result-input"></div>
+        <div><input type="text" class="revenue-change-input change-input"></div>
+        <div class="input-dollar"><input type="text" class="future-result-rev" disabled=""></div>
+    </div>
+    <div class="row-whole">
+        <div>Gross Margin</div>
+        <div class="input-percentage"><input type="text" class="past-grossm-input format-input"></div>
+        <div><input type="text" class="grossm-change-input change-input format-input"></div>
+        <div class="input-percentage"><input type="text" class="future-grossm-input " disabled=""></div>
+    </div>
+    <div class="row-whole">
+        <div>Gross Profit</div>
+        <div class="input-dollar"><input type="text" class="past-gross-profit-input"></div>
+        <div><input type="text" class="gross-profit-change-input change-input"></div>
+        <div class="input-dollar"><input type="text" class="future-gross-profit-input" disabled=""></div>
+    </div>
+    <div class="row-whole">
+        <div>Fixed Costs</div>
+        <div class="input-dollar"><input type="text" class="past-fix-cost-input format-input"></div>
+        <div><input type="text" class="fixed-cost-change-input change-input format-input"></div>
+        <div class="input-dollar"><input type="text" class="future-fix-cost-input" disabled=""></div>
+    </div>
+    <div class="row-whole">
+        <div>Net Profit</div>
+        <div class="input-dollar"><input type="text" class="past-net-profit"></div>
+        <div><input type="text" class="net-profit-change-input change-input"></div>
+        <div class="input-dollar"><input type="text" class="future-net-profit" disabled=""></div>
+    </div>
+    <div class="row-whole">
+        <div>Coaching Investment</div>
+        <div></div>
+        <div></div>
+        <div class="input-dollar"><input type="text" class="future-coaching-investment"></div>
+    </div>
+    <div class="row-whole">
+        <div>Net Profit After Coaching</div>
+        <div></div>
+        <div></div>
+        <div class="input-dollar"><input type="text" class="future-net-profit-after-coaching" disabled=""></div>
+    </div>
+</div>
+
+<script>
+// JavaScript code
+document.getElementById('calc-btn').addEventListener('click', function() {
+    // Get inputs
+    var pastLeads = parseFloat(document.querySelector('.past-lead-input').value);
+    var leadChange = parseFloat(document.querySelector('.lead-change-input').value);
+    var pastConversionRate = parseFloat(document.querySelector('.past-rate-input').value);
+    var conversionRateChange = parseFloat(document.querySelector('.rate-change-input').value);
+    var pastNewCustomers = parseFloat(document.querySelector('.past-customer1-input').value);
+    var newCustomersChange = parseFloat(document.querySelector('.customer1-change-input').value);
+    var pastRetainedCustomers = parseFloat(document.querySelector('.past-retained-customer1').value);
+    var retainedCustomersChange = parseFloat(document.querySelector('.retained-change-input').value);
+    var pastCustomers = parseFloat(document.querySelector('.past-customer2-input').value);
+    var customersChange = parseFloat(document.querySelector('.customer2-change-input').value);
+    var pastRevenuePerCustomer = parseFloat(document.querySelector('.past-revenue2-input').value);
+    var revenuePerCustomerChange = parseFloat(document.querySelector('.revenue-customer-change-input').value);
+    var pastRevenues = parseFloat(document.querySelector('.past-result-input').value);
+    var revenuesChange = parseFloat(document.querySelector('.revenue-change-input').value);
+    var pastGrossMargin = parseFloat(document.querySelector('.past-grossm-input').value);
+    var grossMarginChange = parseFloat(document.querySelector('.grossm-change-input').value);
+    var pastGrossProfit = parseFloat(document.querySelector('.past-gross-profit-input').value);
+    var grossProfitChange = parseFloat(document.querySelector('.gross-profit-change-input').value);
+    var pastFixedCosts = parseFloat(document.querySelector('.past-fix-cost-input').value);
+    var fixedCostsChange = parseFloat(document.querySelector('.fixed-cost-change-input').value);
+    var pastNetProfit = parseFloat(document.querySelector('.past-net-profit').value);
+    var netProfitChange = parseFloat(document.querySelector('.net-profit-change-input').value);
+    var futureCoachingInvestment = parseFloat(document.querySelector('.future-coaching-investment').value);
+    
+    // Calculate future values
+    var futureLeads = pastLeads * (1 + (leadChange / 100));
+    var futureConversionRate = pastConversionRate * (1 + (conversionRateChange / 100));
+    var futureNewCustomers = pastNewCustomers * (1 + (newCustomersChange / 100));
+    var futureRetainedCustomers = pastRetainedCustomers * (1 + (retainedCustomersChange / 100));
+    var futureCustomers = pastCustomers * (1 + (customersChange / 100));
+    var futureRevenuePerCustomer = pastRevenuePerCustomer * (1 + (revenuePerCustomerChange / 100));
+    var futureRevenues = pastRevenues * (1 + (revenuesChange / 100));
+    var futureGrossMargin = pastGrossMargin * (1 + (grossMarginChange / 100));
+    var futureGrossProfit = pastGrossProfit * (1 + (grossProfitChange / 100));
+    var futureFixedCosts = pastFixedCosts * (1 + (fixedCostsChange / 100));
+    var futureNetProfit = pastNetProfit * (1 + (netProfitChange / 100));
+    var futureNetProfitAfterCoaching = futureNetProfit - futureCoachingInvestment;
+    
+    // Display future values
+    document.querySelector('.future-lead-input').value = futureLeads.toFixed(2);
+    document.querySelector('.future-rate-input').value = futureConversionRate.toFixed(2);
+    document.querySelector('.future-customer1-input').value = futureNewCustomers.toFixed(2);
+    document.querySelector('.future-retained-customer2').value = futureRetainedCustomers.toFixed(2);
+    document.querySelector('.future-customers2-input').value = futureCustomers.toFixed(2);
+    document.querySelector('.future-revenue-customer-input').value = futureRevenuePerCustomer.toFixed(2);
+    document.querySelector('.future-result-rev').value = futureRevenues.toFixed(2);
+    document.querySelector('.future-grossm-input').value = futureGrossMargin.toFixed(2);
+    document.querySelector('.future-gross-profit-input').value = futureGrossProfit.toFixed(2);
+    document.querySelector('.future-fix-cost-input').value = futureFixedCosts.toFixed(2);
+    document.querySelector('.future-net-profit').value = futureNetProfit.toFixed(2);
+    document.querySelector('.future-net-profit-after-coaching').value = futureNetProfitAfterCoaching.toFixed(2);
+});
+
+</script>
+</body>
+</html>
+

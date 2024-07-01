@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+	<html lang="en">
+	<head>
+	  <meta charset="UTF-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <title>Inner Zoom</title>
+	  <style>
+		#zoom-container {
+		  width: 300px;
+		  height: 300px;
+		  overflow: hidden;
+		  position: relative;
+		}
+		#zoomed-image {
+		  width: 100%;
+		  height: 100%;
+		  transform-origin: 0 0;
+		  transition: transform 0.3s ease-out;
+		}
+	  </style>
+	</head>
+	<body>
+	<div id="zoom-container" onmousemove="zoomImage(event)" onmouseleave="resetZoom()">
+	  <img id="zoomed-image" src="https://i.stack.imgur.com/JT2CR.jpg" alt="Zoomed Image">
+	</div>
+	<script>
+	  const zoomContainer = document.getElementById('zoom-container');
+	  const zoomedImage = document.getElementById('zoomed-image');
+	  function zoomImage(event) {
+		const { offsetX, offsetY, target } = event;
+		const { width, height } = target.getBoundingClientRect();
+		const xPercent = (offsetX / width) * 100;
+		const yPercent = (offsetY / height) * 100;
+		const scale = 2;
+		const translateX = -xPercent * (scale - 1);
+		const translateY = -yPercent * (scale - 1);
+		zoomedImage.style.transform = `scale(${scale}) translate(${translateX}%, ${translateY}%)`;
+	  }
+	  function resetZoom() {
+		zoomedImage.style.transform = 'scale(1) translate(0%, 0%)';
+	  }
+	</script>
+	</body>
+	</html>

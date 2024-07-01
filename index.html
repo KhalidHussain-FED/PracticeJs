@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>task1</title>
+</head>
+<body>
+    <div id="demo"></div>
+    <script>
+        function calculate (a,b){
+            const add = a+b;
+            const subtract = a-b;
+            const multiply = a*b;
+            const divide = a/b;
+            return [add,subtract,multiply,divide];
+        }
+
+
+        const [add, subtract, multiply, divide] = calculate(4,7);
+
+        document.write("<p>Sum: " +add + "</p>");
+        document.write("<p>Subtract: " +subtract + "</p>");
+        document.write("<p>Multiply: " +multiply + "</p>");
+        document.write("<p>Divide: " +divide + "</p>");
+    </script>
+
+    <script>
+        const vehicaleOne = {
+            make: "Toyota",
+            model: "Camry",
+            year: 2018,
+            color: "Black",
+            price: 30000
+        }
+
+        myVehicale(vehicaleOne);
+
+
+        function myVehicale({type, color, price, year, model}) {
+            const message = 'My ' + make + ' is a ' + color + ' ' + price + ' ' + model + '.';
+            console.log(message);
+            document.getElementById("demo").innerHTML = message;
+        }
+    </script>
+</body>
+</html>

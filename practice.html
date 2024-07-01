@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .tooltip {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    bottom: 150%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+    </style>
+</head>
+<body>
+    <form  action='/' id="form">
+        <input type="text" placeholder="Name" name="name" value="">
+        <input type="email" placeholder="email" name="" value="">
+        <input type="submit" onclick="myfun(); return false;">
+    </form>
+    <div class="print">
+        <p>name: <span class="test1"></span></p>
+        <p>email: <span class="test2"></span></p>
+    </div>
+
+
+    <form id="form2">
+        <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+        <label for="vehicle1"> I have a bike</label><br>
+        <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+        <label for="vehicle2"> I have a car</label><br>
+        <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">
+        <label for="vehicle3"> I have a boat</label><br><br>
+        <input type="submit" value="Submit" onclick="myfun1(event); return false">
+      </form> 
+      <div class="tooltip">Your message was sent successfully</div>
+
+      <div class="print">
+        <p>vehicle1: <span class="a"></span></p>
+        <p>vehicle2: <span class="b"></span></p>
+        <p>vehicle3: <span class="c"></span></p>
+    </div>
+
+    <script>
+        function myfun() {
+    var x = document.querySelector('input[type="text"]').value;
+    var y = document.querySelector('input[type="email"]').value;
+    
+    if (!/^[a-zA-Z]+$/.test(x)) {
+        alert("Please enter only letters in the Name field.");
+        return;
+    }
+    
+    // Validation for Email field
+    if (!/\S+@\S+\.\S+/.test(y)) {
+        alert("Please enter a valid email address.");
+        return;
+    }
+    
+    // Update elements with class names 'test1' and 'test2'
+    document.querySelector('.test1').innerText = x;
+    document.querySelector('.test2').innerText = y;
+    
+    // Show tooltip after successful submission
+    var tooltip = document.querySelector('.tooltip');
+    tooltip.classList.add('show');
+    setTimeout(function() {
+        tooltip.classList.remove('show');
+    }, 3000); // Hide tooltip after 3 seconds
+}
+
+        function myfun1(event) {
+        event.preventDefault(); // Prevent form submission
+        var a = document.getElementById("vehicle1").checked ? document.getElementById("vehicle1").value : "";
+        var b = document.getElementById("vehicle2").checked ? document.getElementById("vehicle2").value : "";
+        var c = document.getElementById("vehicle3").checked ? document.getElementById("vehicle3").value : "";
+
+        document.querySelector('.a').innerText = a;
+        document.querySelector('.b').innerText = b;
+        document.querySelector('.c').innerText = c;
+    }
+    </script>
+</body>
+</html>
